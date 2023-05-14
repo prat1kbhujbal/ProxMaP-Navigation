@@ -24,8 +24,6 @@
     <build_depend>vision_opencv</build_depend>
     <exec_depend>vision_opencv</exec_depend>
 
-    <depend>opencv3</depend>
-
     <export>
         <!-- Other tools can request additional information be placed here -->
     </export>

@@ -14,7 +14,6 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   tf2_ros
   tf2_geometry_msgs
-  vision_opencv
 )
 
 ## System dependencies are found with CMake's conventions
@@ -24,7 +23,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES proxmap_ros
-  CATKIN_DEPENDS rospy sensor_msgs geometry_msgs nav_msgs tf2_ros tf2_geometry_msgs vision_opencv
+  CATKIN_DEPENDS rospy sensor_msgs geometry_msgs nav_msgs tf2_ros tf2_geometry_msgs
 #  DEPENDS system_lib
 )
 
@@ -35,9 +34,10 @@ include_directories(
 
 # Installation
 catkin_install_python(PROGRAMS
-  scripts/1.py
-  scripts/2.py
-  scripts/4.py
+  scripts/laser_to_image.py
+  scripts/map_polygon.py
+  scripts/pred_costmap.py
+  scripts/map_predictor.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
