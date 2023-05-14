@@ -1,0 +1,19 @@
+robot_radius: 0.20
+
+inflation:
+    inflation_radius: 0.25
+
+static:
+    map_topic: /map
+    subscribe_to_updates: false
+
+virtual_layer:
+  enabled:              true
+  obstacle_topics:      [/obstacles]
+
+obstacles_laser:
+    obstacle_range: 3.0
+    raytrace_range: 3.5
+    combination_method: 1
+    observation_sources: scan
+    scan: {sensor_frame: base_scan, data_type: LaserScan, topic: scan,inf_is_valid: true, marking: true, clearing: true}
