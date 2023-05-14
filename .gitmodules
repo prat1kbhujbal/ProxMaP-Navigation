@@ -1,3 +1,0 @@
-[submodule "turtlebot2_simulation/kobuki"]
-	path = turtlebot2_simulation/kobuki
-	url = https://github.com/yujinrobot/kobuki.git
