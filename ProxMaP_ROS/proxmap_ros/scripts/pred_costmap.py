@@ -1,4 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+"""
+Author: Pratik Bhujbal
+License: MIT
+"""
 
 import rospy
 import cv2
@@ -39,7 +43,7 @@ class CompressedImageToCostmap:
         """
         Callback function to process incoming ROS messages and publish costmaps
 
-        :param compressed_image_msg: CompressedImage ROS message
+        : param compressed_image_msg: CompressedImage ROS message
         """
         if self.odom is None:
             rospy.logwarn("Odometry data is not available yet.")
@@ -60,7 +64,7 @@ class CompressedImageToCostmap:
         """
         Callback function to update the odometry data
 
-        :param odom_msg: Odometry ROS message
+        : param odom_msg: Odometry ROS message
         """
         self.odom = odom_msg
 
@@ -68,8 +72,8 @@ class CompressedImageToCostmap:
         """
         Function to convert an OpenCV image to a costmap with origin from odometry
 
-        :param cv_image: Input image in OpenCV format (grayscale)
-        :return: OccupancyGrid message containing the costmap
+        : param cv_image: Input image in OpenCV format(grayscale)
+        : return: OccupancyGrid message containing the costmap
         """
         # Convert the grayscale image to a numpy array
         image_array = np.array(cv_image, dtype=np.int8)
