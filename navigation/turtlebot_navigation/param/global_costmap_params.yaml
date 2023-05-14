@@ -1,0 +1,13 @@
+global_costmap:
+  global_frame: /map
+  robot_base_frame: /base_footprint
+  update_frequency: 10.0
+  publish_frequency: 5.0
+  rolling_window: false
+  
+  track_unknown_space: true
+
+  plugins:
+    - {name: static,                   type: "costmap_2d::StaticLayer"}
+    - {name: virtual_layer,         type: "virtual_costmap_layer::VirtualLayer"}
+    - {name: inflation,                type: "costmap_2d::InflationLayer"}
