@@ -1,0 +1,10 @@
+<launch>
+    <node pkg="proxmap_ros" type="laser_to_image.py" name="laser_to_image" output="screen">
+    </node>
+
+    <node pkg="proxmap_ros" type="map_predictor.py" name="map_predictor" output="screen">
+    </node>
+
+    <node pkg="proxmap_ros" type="map_polygon.py" name="polygon_extractor" output="screen">
+    </node>
+</launch>
