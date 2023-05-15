@@ -1,4 +1,6 @@
 <launch>
+    <arg name="show_predmap" default="false" />
+
     <node pkg="proxmap_ros" type="laser_to_image.py" name="laser_to_image" output="screen">
     </node>
 
@@ -6,5 +8,9 @@
     </node>
 
     <node pkg="proxmap_ros" type="map_polygon.py" name="polygon_extractor" output="screen">
+    </node>
+
+    <node pkg="proxmap_ros" type="pred_costmap.py" name="compressed_image_to_costmap"
+        output="screen" if="$(arg show_predmap)">
     </node>
 </launch>

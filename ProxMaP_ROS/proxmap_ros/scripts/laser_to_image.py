@@ -34,7 +34,6 @@
 #
 # Author: Benjamin Narin
 
-import bresenham
 import roslib
 # roslib.load_manifest('laser_to_image')
 import numpy as np
@@ -55,11 +54,76 @@ max_lidar_range = 10
 image_size = int(max_lidar_range * 2 * disc_factor)
 
 
+class bresenham:
+    def __init__(self, start, end):
+        self.start = list(start)
+        self.end = list(end)
+        self.path = []
+        self.toggle = 0
+
+        if start[0] - end[0] + start[1] - end[1] == 0:
+            return None
+
+        self.steep = abs(
+            self.end[1] -
+            self.start[1]) > abs(
+            self.end[0] -
+            self.start[0])
+
+        if self.steep:
+            self.start = self.swap(self.start[0], self.start[1])
+            self.end = self.swap(self.end[0], self.end[1])
+
+        if self.start[0] > self.end[0]:
+            self.toggle = 1
+            # print 'flippin and floppin'
+            _x0 = int(self.start[0])
+            _x1 = int(self.end[0])
+            self.start[0] = _x1
+            self.end[0] = _x0
+
+            _y0 = int(self.start[1])
+            _y1 = int(self.end[1])
+            self.start[1] = _y1
+            self.end[1] = _y0
+
+        dx = self.end[0] - self.start[0]
+        dy = abs(self.end[1] - self.start[1])
+        error = 0
+        derr = dy / float(dx)
+
+        ystep = 0
+        y = self.start[1]
+
+        if self.start[1] < self.end[1]:
+            ystep = 1
+        else:
+            ystep = -1
+
+        for x in range(self.start[0], self.end[0] + 1):
+            if self.steep:
+                self.path.append((y, x))
+            else:
+                self.path.append((x, y))
+
+            error += derr
+
+            if error >= 0.5:
+                y += ystep
+                error -= 1.0
+
+        if self.toggle == 1:
+            self.path.reverse()
+
+    def swap(self, n1, n2):
+        return [n2, n1]
+
+
 class laser_to_image:
     def __init__(self):
         # Laser Scan To Subscribe to
         self.joy_sub = rospy.Subscriber(
-            '/scan', LaserScan, self.cloud_to_image_callback,queue_size=1)
+            '/scan', LaserScan, self.cloud_to_image_callback, queue_size=1)
         # Publisher for Image
         self.pub = rospy.Publisher(
             "/scan_to_image/compressed",
@@ -148,7 +212,7 @@ class laser_to_image:
                 pix_x = int(math.floor((pt_x + max_lidar_range) * disc_factor))
                 pix_y = int(math.floor((max_lidar_range - pt_y) * disc_factor))
                 # print(f'IN: ({pt_x}, {pt_y})')
-                l = bresenham.bresenham(
+                l = bresenham(
                     [image_size // 2, image_size // 2],
                     [pix_x, pix_y])
                 for j in range(len(l.path)):
