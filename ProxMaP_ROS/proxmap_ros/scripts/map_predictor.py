@@ -38,9 +38,19 @@ import torch
 import numpy as np
 import cv2
 import rospy
+import rospkg
+import os
+import sys
 from sensor_msgs.msg import LaserScan, CompressedImage
 # from cv_bridge import CvBridge, CvBridgeError
 
+rospack = rospkg.RosPack()
+package_path = rospack.get_path('proxmap_ros')
+
+model_path = package_path + '/model'
+sys.path.append(model_path)
+
+model_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'model')
 
 # Discretization Size
 disc_size = .08
@@ -58,7 +68,7 @@ class map_predictor:
         # self.device = torch.device('cuda:0')
 
         pred_model = torch.load(
-            f'../model/clasfn_crossent_v1.pth',
+            model_path + f'/clasfn_crossent_v1.pth',
             map_location=self.device)
         self.clasfn_model = pred_model
         self.clasfn_model = self.clasfn_model.to(self.device)

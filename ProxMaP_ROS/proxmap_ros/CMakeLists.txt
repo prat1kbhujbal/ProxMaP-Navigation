@@ -38,6 +38,9 @@ catkin_install_python(PROGRAMS
   scripts/map_polygon.py
   scripts/pred_costmap.py
   scripts/map_predictor.py
+  scripts/polygon_update.py
+  scripts/obscost_update.py
+  scripts/goal_pub.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
