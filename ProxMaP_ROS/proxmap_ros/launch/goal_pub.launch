@@ -1,0 +1,7 @@
+<launch>
+
+
+    <node pkg="proxmap_ros" type="goal_pub.py" name="move_base_goal_publisher" output="screen">
+    </node>
+
+</launch>
