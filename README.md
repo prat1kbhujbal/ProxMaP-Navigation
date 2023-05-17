@@ -7,7 +7,7 @@ Risk-aware navigation using occupancy map predictions from deep learning (ProxMa
 ## Building the project and Installating dependencies
 1. Clone the repository
 ```bash
-git clone 
+git clone https://github.com/prat1kbhujbal/ProxMaP-Navigation.git
 ```
 2. Install dependencies
 ```bash
