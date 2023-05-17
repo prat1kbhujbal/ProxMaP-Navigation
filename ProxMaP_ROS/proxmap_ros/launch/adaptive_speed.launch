@@ -1,6 +1,8 @@
 <launch>
 
-
+    <node pkg="proxmap_ros" type="polygon_to_obstacles.py" name="polygon_to_obstacles"
+        output="screen">
+    </node>
     <node pkg="proxmap_ros" type="obscost_update.py" name="adaptive_speed" output="screen">
     </node>
 
