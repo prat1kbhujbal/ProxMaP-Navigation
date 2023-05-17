@@ -13,7 +13,7 @@ git clone
 ```bash
 cd <your_ws>/
 rosdep install --from-paths src --ignore-src -r -y
-```bash
+```
 3. Build the project
 ```bash
 catkin_make
@@ -40,14 +40,12 @@ Update your goal points as per your environment in the file `goal_publisher.py` 
 
 5. Launch the Adaptive Speed node  
 ```bash
-
-
-
 roslaunch proxmap_ros adaptive_speed.launch
 ```
 This will generate a csv file with the results in the folder `results/` i,e time taken for each goal point to be reached and total time taken for all the goal points to be reached.
 
 ## Results
 https://github.com/prat1kbhujbal/ProxMaP-Navigation/assets/55290437/5b14b95d-3e72-4382-9dfa-fb178f88abfa
+
 
 
