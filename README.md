@@ -32,7 +32,7 @@ roslaunch turtlebot_navigation mapping.launch
 ```
 3. Launch the prediction update node
 ```bash
-roslaunch proxmap_ros main.launch
+roslaunch proxmap_ros main.launch show_predmap:=true
 ```
 Param: show_predmap (default: false) - To visualize the occupancy map predictions on Rviz
 
