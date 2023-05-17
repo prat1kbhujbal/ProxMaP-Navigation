@@ -52,3 +52,6 @@ This will generate a csv file with the results in the folder `results/` i,e time
 https://github.com/prat1kbhujbal/ProxMaP-Navigation/assets/55290437/f4f43f06-7701-4901-843b-3aff37163fff
 
 
+## Reference
+> [1] Sharma, V.D., Chen, J. and Tokekar, P., 2023. ProxMaP: Proximal Occupancy Map Prediction for Efficient Indoor Robot Navigation. arXiv preprint arXiv:2305.05519.  
+> [2] https://github.com/GMahmoud/virtual_costmap_layer
