@@ -1,0 +1,7 @@
+<launch>
+
+
+    <node pkg="proxmap_ros" type="obscost_update.py" name="adaptive_speed" output="screen">
+    </node>
+
+</launch>

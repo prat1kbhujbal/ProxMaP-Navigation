@@ -1,122 +1,119 @@
+#!/usr/bin/env python
+
 import rospy
-import numpy as np
 from nav_msgs.msg import OccupancyGrid, Odometry
-from geometry_msgs.msg import PoseStamped
-from math import sqrt
+from map_msgs.msg import OccupancyGridUpdate
+from dynamic_reconfigure.client import Client
+import numpy as np
+
+# Robot radius in meters
+ROBOT_RADIUS = 0.5
+
+# DWA parameter names
+MAX_VEL_TRANS = 'max_vel_trans'
+MAX_VEL_X = 'max_vel_x'
+MAX_ROT_VEL = 'max_rot_vel'
+MIN_ROT_VEL = 'min_rot_vel'
+
+# Global variable to store the robot's position
+robot_position = None
+global_costmap = None
+global_costmap_info = None
 
 
-def map_callback(data):
-    global costmap
-    costmap = data
+def set_dwa_params(client, max_vel_x):
+    params = {
+        MAX_VEL_X: max_vel_x,
+        MAX_VEL_TRANS: max_vel_x
+    }
+    client.update_configuration(params)
 
 
-def goal_callback(data):
-    global goal
-    goal = data.pose.position
-
-
-def odom_callback(data):
+def odom_callback(msg):
     global robot_position
-    position = data.pose.pose.position
-    robot_position = (position.x, position.y)
+    robot_position = msg.pose.pose.position
 
 
-def get_average_occupancy(x, y, radius):
-    global costmap
+def global_costmap_callback(msg):
+    global global_costmap, global_costmap_info
 
-    if not costmap:
-        rospy.loginfo("Waiting for map data")
-        return None
+    width = msg.info.width
+    height = msg.info.height
+    resolution = msg.info.resolution
 
-    width = costmap.info.width
-    height = costmap.info.height
-    resolution = costmap.info.resolution
-    origin_x = costmap.info.origin.position.x
-    origin_y = costmap.info.origin.position.y
-
-    map_x = int((x - origin_x) / resolution)
-    map_y = int((y - origin_y) / resolution)
-
-    occupancy_sum = 0
-    count = 0
-    for i in np.arange(-radius, radius + resolution, resolution):
-        for j in np.arange(-radius, radius + resolution, resolution):
-            if sqrt(i**2 + j**2) <= radius:
-                x_index = map_x + int(i / resolution)
-                y_index = map_y + int(j / resolution)
-
-                if 0 <= x_index < width and 0 <= y_index < height:
-                    index = y_index * width + x_index
-                    occupancy = costmap.data[index]
-                    if occupancy >= 0:
-                        occupancy_sum += occupancy
-                        count += 1
-
-    if count > 0:
-        return occupancy_sum / count
-    else:
-        return None
+    # Convert costmap data to a NumPy array
+    global_costmap = np.array(msg.data).reshape(height, width)
+    global_costmap_info = msg.info
 
 
-def adjust_speed_based_on_occupancy():
-    global robot_position, goal
+def costmap_callback(msg):
+    global robot_position, global_costmap, global_costmap_info
 
-    robot_average_occupancy = get_average_occupancy(
-        robot_position[0], robot_position[1], robot_radius)
-    if goal is not None:
-        goal_average_oc = get_average_occupancy(
-            goal.x, goal.y, goal_radius)
-    #     print("goal_average_occupancy: ", goal_average_oc)
-    # # goal_average_occupancy = get_average_occupancy(goal.x, goal.y, goal_radius)
-    #     print("robot_average_occupancy: ", robot_average_occupancy)
+    if robot_position is None:
+        return
 
-        if robot_average_occupancy is not None and goal_average_oc is not None:
-            max_average_occupancy = min(
-                robot_average_occupancy,
-                goal_average_oc)
+    if global_costmap is None:
+        rospy.logerr(
+            "Global costmap is not initialized. Cannot apply updates.")
+        return
 
-            if max_average_occupancy == -1:
-                linear_speed = 0.1  # m/s
-                angular_speed = 0.7
-            else:
+    # Apply the update to the global costmap
+    update_data = np.array(msg.data).reshape(msg.height, msg.width)
+    global_costmap[msg.y:msg.y + msg.height,
+                   msg.x:msg.x + msg.width] = update_data
 
-                linear_speed = 0.5  # m/s
-                angular_speed = 1.0
+    try:
+        # print("Costmap callback")
+        # Get costmap metadata
+        width, height = global_costmap.shape
+        resolution = global_costmap_info.resolution
+        origin = global_costmap_info.origin
 
-            return linear_speed, angular_speed
-        else:
-            return None, None
-    else:
-        return None, None
+        # Calculate the robot's position in the costmap
+        robot_x = int((robot_position.x - origin.position.x) / resolution)
+        robot_y = int((robot_position.y - origin.position.y) / resolution)
+
+        # Calculate the number of cells in the robot's radius
+        cells_in_radius = int(ROBOT_RADIUS / resolution)
+
+        # Extract the submap around the robot's position
+        submap = global_costmap[robot_y -
+                                cells_in_radius:robot_y +
+                                cells_in_radius, robot_x -
+                                cells_in_radius:robot_x +
+                                cells_in_radius]
+
+        # Calculate the average cost in the submap
+        avg_cost = np.mean(submap)
+        print(f"Average cost: {avg_cost}")
+
+        # Set DWA parameters based on the average cost
+        max_vel_x = 0.4 if avg_cost >= 0 else 0.2
+        set_dwa_params(dwa_client, max_vel_x)
+
+    except Exception as e:
+        rospy.logerr(f"Error in costmap_callback: {e}")
 
 
 if __name__ == '__main__':
-    rospy.init_node('adaptive_speed_controller')
+    try:
+        rospy.init_node('adaptive_speed')
 
-    costmap = None
-    rospy.Subscriber("/map", OccupancyGrid, map_callback)
-    goal = None
-    rospy.Subscriber("/move_base_simple/goal", PoseStamped, goal_callback)
+        # Subscribe to the /odom and /map topics
+        rospy.Subscriber('/odom', Odometry, odom_callback)
+        rospy.Subscriber(
+            '/map',
+            OccupancyGrid,
+            global_costmap_callback)
+        rospy.Subscriber(
+            '/move_base/global_costmap/costmap_updates',
+            OccupancyGridUpdate,
+            costmap_callback)
 
-    # Set the robot's position, radius, and goal radius
-    robot_position = (0.0, 0.0)
-    rospy.Subscriber("/odom", Odometry, odom_callback)
-    robot_radius = 0.5
-    goal_radius = 0.5
+        # Initialize the dynamic reconfigure client for DWA parameters
+        dwa_client = Client('/move_base/DWAPlannerROS')
 
-    rate = rospy.Rate(10)
-    while not rospy.is_shutdown():
-        linear_speed, angular_speed = adjust_speed_based_on_occupancy()
+        rospy.spin()
 
-        if linear_speed is not None and angular_speed is not None:
-            rospy.set_param(
-                '/move_base/DWAPlannerROS/max_vel_x',
-                linear_speed)
-            rospy.set_param(
-                '/move_base/DWAPlannerROS/max_vel_theta',
-                angular_speed)
-        rospy.loginfo(
-            "Adjusted max_vel_x to: {} and max_rotational_vel to: {}".format(
-                linear_speed, angular_speed))
-
-        rate.sleep()
+    except rospy.ROSInterruptException as e:
+        rospy.logerr(f"Error in main: {e}")

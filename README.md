@@ -33,9 +33,9 @@ roslaunch  proxmap_navigation.launch
 4. Launch the goal publisher node
 ```bash
 ```
-Update your goal points as per your environment in the file `goal_publisher.py`.
+Update your goal points as per your environment in the file `goal_publisher.py` in `ProxMaP_ROS/proxmap_ros/scripts` folder.
 
-4. Launch the Adaptive Speed node  
+5. Launch the Adaptive Speed node  
 ```bash
 ```
 This will generate a csv file with the results in the folder `results/` i,e time taken for each goal point to be reached and total time taken for all the goal points to be reached.
