@@ -34,6 +34,8 @@ roslaunch turtlebot_navigation mapping.launch
 ```bash
 roslaunch proxmap_ros main.launch
 ```
+Param: show_predmap (default: false) - To visualize the occupancy map predictions on Rviz
+
 4. Launch the Adaptive Speed node  
 ```bash
 roslaunch proxmap_ros adaptive_speed.launch
