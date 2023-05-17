@@ -63,7 +63,6 @@ def costmap_callback(msg):
                    msg.x:msg.x + msg.width] = update_data
 
     try:
-        # print("Costmap callback")
         # Get costmap metadata
         width, height = global_costmap.shape
         resolution = global_costmap_info.resolution
@@ -85,7 +84,7 @@ def costmap_callback(msg):
 
         # Calculate the average cost in the submap
         avg_cost = np.mean(submap)
-        print(f"Average cost: {avg_cost}")
+        # print(f"Average cost: {avg_cost}")
 
         # Set DWA parameters based on the average cost
         max_vel_x = 0.4 if avg_cost >= 0 else 0.2

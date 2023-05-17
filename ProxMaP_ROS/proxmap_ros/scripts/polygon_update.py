@@ -15,7 +15,7 @@ class PolygonToObstacles:
         rospy.Subscriber(
             '/convex_hull_polygon',
             PolygonStamped,
-            self.polygon_callback,queue_size=1)
+            self.polygon_callback, queue_size=1)
 
     def polygon_callback(self, polygon_stamped):
         rate = rospy.Rate(1)

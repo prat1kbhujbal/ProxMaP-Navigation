@@ -88,8 +88,15 @@ def generate_unique_filename(filename):
 rospy.init_node('move_base_goal_publisher')
 client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
 client.wait_for_server()
+# Include the folder path in the filename
+results_folder = '../../../results'
 
-filename = 'time_to_reach_goals.csv'
+# Get the current script directory
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Create the results folder if it does not exist
+results_path = os.path.join(script_dir, results_folder)
+filename = os.path.join(results_path, 'time_to_reach_goals.csv')
 unique_filename = generate_unique_filename(filename)
 
 # Prepare the CSV file for writing
