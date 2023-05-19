@@ -53,7 +53,7 @@ https://github.com/prat1kbhujbal/ProxMaP-Navigation/assets/55290437/f4f43f06-770
 
 <table>
   <tr>
-    <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Environment setup</td>
+    <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Environment setup</td>
      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Robot's starting location</td>
   </tr>
   <tr>
@@ -63,8 +63,8 @@ https://github.com/prat1kbhujbal/ProxMaP-Navigation/assets/55290437/f4f43f06-770
  </table>
 <table>
   <tr>
-   <td>&nbsp; &nbsp; Laser data conversion to image format</td>
-     <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Occupancy map prediction</td>
+   <td> Laser data conversion to image format</td>
+     <td> &nbsp; &nbsp; &nbsp; &nbsp; Occupancy map prediction</td>
     <td>Integration of predicted map onto costmap</td>
   </tr>
   <tr>
