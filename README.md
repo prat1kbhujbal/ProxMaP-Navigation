@@ -68,9 +68,9 @@ https://github.com/prat1kbhujbal/ProxMaP-Navigation/assets/55290437/f4f43f06-770
     <td>Integration of predicted map onto costmap</td>
   </tr>
   <tr>
-    <td><img src="results/laser_data.png" width=333 height=250></td>
-    <td><img src="results/map_prediction.png" width=333 height=250></td>
-    <td><img src="results/costmap.png" width=333 height=250></td>
+    <td><img src="results/laser_data.png" width=333 height=220></td>
+    <td><img src="results/map_prediction.png" width=333 height=220></td>
+    <td><img src="results/costmap.png" width=333 height=220></td>
   </tr>
  </table>
 
