@@ -54,7 +54,7 @@ https://github.com/prat1kbhujbal/ProxMaP-Navigation/assets/55290437/f4f43f06-770
 <table>
   <tr>
     <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Environment setup</td>
-     <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Robot's starting location</td>
+     <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Robot's start location</td>
   </tr>
   <tr>
     <td><img src="results/environment.png" width=700 height=250></td>
