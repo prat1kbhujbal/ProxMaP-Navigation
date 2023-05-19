@@ -57,8 +57,8 @@ https://github.com/prat1kbhujbal/ProxMaP-Navigation/assets/55290437/f4f43f06-770
      <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Robot's starting location</td>
   </tr>
   <tr>
-    <td><img src="results/environment.png" width=700 height=300></td>
-    <td><img src="results/start_pos.png" width=350 height=300></td>
+    <td><img src="results/environment.png" width=700 height=250></td>
+    <td><img src="results/start_pos.png" width=350 height=250></td>
   </tr>
  </table>
 <table>
@@ -68,9 +68,9 @@ https://github.com/prat1kbhujbal/ProxMaP-Navigation/assets/55290437/f4f43f06-770
     <td>Integration of predicted map onto costmap</td>
   </tr>
   <tr>
-    <td><img src="results/laser_data.png" width=333 height=270></td>
-    <td><img src="results/map_prediction.png" width=333 height=270></td>
-    <td><img src="results/costmap.png" width=333 height=270></td>
+    <td><img src="results/laser_data.png" width=333 height=250></td>
+    <td><img src="results/map_prediction.png" width=333 height=250></td>
+    <td><img src="results/costmap.png" width=333 height=250></td>
   </tr>
  </table>
 
