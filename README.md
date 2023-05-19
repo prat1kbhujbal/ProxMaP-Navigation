@@ -51,6 +51,28 @@ This will generate a csv file with the results in the folder `results/` i,e time
 ## Results
 https://github.com/prat1kbhujbal/ProxMaP-Navigation/assets/55290437/f4f43f06-7701-4901-843b-3aff37163fff
 
+<table>
+  <tr>
+    <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Environment setup</td>
+     <td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Robot's starting location</td>
+  </tr>
+  <tr>
+    <td><img src="results/environment.png" width=700 height=300></td>
+    <td><img src="results/start_pos.png" width=350 height=300></td>
+  </tr>
+ </table>
+<table>
+  <tr>
+   <td>&nbsp; &nbsp; Laser data conversion to image format</td>
+     <td>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Occupancy map prediction</td>
+    <td>Integration of predicted map onto costmap</td>
+  </tr>
+  <tr>
+    <td><img src="results/laser_data.png" width=333 height=270></td>
+    <td><img src="results/map_prediction.png" width=333 height=270></td>
+    <td><img src="results/costmap.png" width=333 height=270></td>
+  </tr>
+ </table>
 
 ## Reference
 > [1] Sharma, V.D., Chen, J. and Tokekar, P., 2023. ProxMaP: Proximal Occupancy Map Prediction for Efficient Indoor Robot Navigation. arXiv preprint arXiv:2305.05519.  
